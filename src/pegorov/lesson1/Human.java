@@ -21,10 +21,12 @@ public class Human implements Actions {
         System.out.println("Human " + this.name + " is jumping " + this.getJumpHeight());
     }
 
+    @Override
     public int getRunDistance() {
         return this.runDistance;
     }
 
+    @Override
     public int getJumpHeight() {
         return this.jumpHeight;
     }

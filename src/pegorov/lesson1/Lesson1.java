@@ -67,17 +67,7 @@ public class Lesson1 {
                 result = action[i].run(barriers[j]);
                  */
 
-                if (Human.class == actions[i].getClass()) {
-                    result = barriers[j].moving((Human) actions[i]);
-                }
-
-                if (Robot.class == actions[i].getClass()) {
-                    result = barriers[j].moving((Robot) actions[i]);
-                }
-
-                if (Cat.class == actions[i].getClass()) {
-                    result = barriers[j].moving((Cat) actions[i]);
-                }
+                result = barriers[j].moving(actions[i]);
 
                 if (!result) {
                     break;

@@ -21,10 +21,12 @@ public class Robot implements Actions {
         System.out.println("Robot " + this.name + " is jumping " + this.getJumpHeight());
     }
 
+    @Override
     public int getRunDistance() {
         return this.runDistance;
     }
 
+    @Override
     public int getJumpHeight() {
         return this.jumpHeight;
     }

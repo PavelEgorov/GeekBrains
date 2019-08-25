@@ -15,51 +15,17 @@ public class Wall extends Barrier {
     }
 
     @Override
-    protected boolean moving(Human human) {
+    protected boolean moving(Actions actions) {
         System.out.println("The wall " + super.getName() + "heigth: " + this.heigth);
 
-        human.jump();
+        actions.jump();
 
-        if (getHeigth() <= human.getJumpHeight()) {
-            System.out.println("Human jump success");
-
-            return true;
-        } else {
-            System.out.println("Human jump unsuccessfully");
-
-            return false;
-        }
-    }
-
-    @Override
-    protected boolean moving(Robot robot) {
-        System.out.println("The wall " + super.getName() + "heigth: " + this.heigth);
-
-        robot.jump();
-
-        if (getHeigth() <= robot.getJumpHeight()) {
-            System.out.println("Robot jump success");
+        if (getHeigth() <= actions.getJumpHeight()) {
+            System.out.println("jump success");
 
             return true;
         } else {
-            System.out.println("Robot jump unsuccessfully");
-
-            return false;
-        }
-    }
-
-    @Override
-    protected boolean moving(Cat cat) {
-        System.out.println("The wall " + super.getName() + " heigth: " + this.heigth);
-
-        cat.jump();
-
-        if (getHeigth() <= cat.getJumpHeight()) {
-            System.out.println("Cat jump success");
-
-            return true;
-        } else {
-            System.out.println("Cat jump unsuccessfully");
+            System.out.println("jump unsuccessfully");
 
             return false;
         }

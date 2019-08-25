@@ -21,10 +21,12 @@ public class Cat implements Actions {
         System.out.println("Cat " + this.name + " is jumping " + this.getJumpHeight());
     }
 
+    @Override
     public int getRunDistance() {
         return this.runDistance;
     }
 
+    @Override
     public int getJumpHeight() {
         return this.jumpHeight;
     }

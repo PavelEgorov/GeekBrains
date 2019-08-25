@@ -14,51 +14,17 @@ public class Road extends Barrier {
     }
 
     @Override
-    protected boolean moving(Human human) {
+    protected boolean moving(Actions actions) {
         System.out.println("The road " + super.getName() + " length: " + this.length);
 
-        human.run();
+        actions.run();
 
-        if (getLength() <= human.getRunDistance()) {
-            System.out.println("Human run success");
-
-            return true;
-        } else {
-            System.out.println("Human run unsuccessfully");
-
-            return false;
-        }
-    }
-
-    @Override
-    protected boolean moving(Robot robot) {
-        System.out.println("The road " + super.getName() + "length: " + this.length);
-
-        robot.run();
-
-        if (getLength() <= robot.getRunDistance()) {
-            System.out.println("Robot run success");
+        if (getLength() <= actions.getRunDistance()) {
+            System.out.println("run success");
 
             return true;
         } else {
-            System.out.println("Robot run unsuccessfully");
-
-            return false;
-        }
-    }
-
-    @Override
-    protected boolean moving(Cat cat) {
-        System.out.println("The road " + super.getName() + "length: " + this.length);
-
-        cat.run();
-
-        if (getLength() <= cat.getRunDistance()) {
-            System.out.println("Cat run success");
-
-            return true;
-        } else {
-            System.out.println("Cat run unsuccessfully");
+            System.out.println("run unsuccessfully");
 
             return false;
         }

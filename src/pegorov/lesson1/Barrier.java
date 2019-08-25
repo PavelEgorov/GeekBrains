@@ -7,11 +7,7 @@ public abstract class Barrier {
         this.name = name;
     }
 
-    protected abstract boolean moving(Human human);
-
-    protected abstract boolean moving(Robot robot);
-
-    protected abstract boolean moving(Cat cat);
+    protected abstract boolean moving(Actions actions);
 
     public String getName() {
         return name;
