@@ -1,11 +1,7 @@
 package pegorov.lesson4.chat;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.Style;
 import java.awt.*;
-import java.util.Enumeration;
 
 public class UMG extends JFrame {
     private int width = 500;
