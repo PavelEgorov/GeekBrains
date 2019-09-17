@@ -1,10 +1,12 @@
 package pegorov.Lesson7;
 
-import javax.xml.crypto.Data;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static java.lang.Thread.sleep;
 
 public class ChatThread {
     private Socket socket;
@@ -12,6 +14,7 @@ public class ChatThread {
     private DataInputStream in;
     private DataOutputStream out;
     private String name;
+    private boolean haveName;
 
     public ChatThread(Server server, Socket socket) throws IOException {
         this.server = server;
@@ -26,7 +29,7 @@ public class ChatThread {
          Первым делом нужно спросить кто к нам подключается.
          */
         System.out.println("Клиент подключился требуется аутентификация");
-        Thread thread = new Thread(()-> {
+        Thread thread = new Thread(() -> {
             try {
                 System.out.println("Создаем поток чтения сообщений от клиента: " + name);
 
@@ -35,8 +38,24 @@ public class ChatThread {
                 e.printStackTrace();
             }
         });
+        haveName = false;
 
-        if (authentication()) {
+        Thread aut = new Thread(()->{
+            try {
+                haveName = authentication();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        aut.start();
+        try {
+            aut.join(120000);/// Ожидаем 120 сек
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (haveName) {
             thread.start();
             try {
                 thread.join();
@@ -103,29 +122,35 @@ public class ChatThread {
             }
 
             String[] msg = str.split(" ", 3);
-            if (msg[0].equalsIgnoreCase("/w")){
+            if (msg[0].equalsIgnoreCase("/w")) {
                 String nameOut = msg[1];
                 server.sendPrivateMsg(msg[2], name, nameOut);
-            }else {
+            } else {
                 server.sendAll(this.name, str);
             }
         }
     }
 
-    public void closeConnection() {
-        try {
-            if (!server.closeClient(this.name)) return;
-            server.sendAll("Клиент: " + this.name + " отключился.");
-
-            sendMessage("/end");
-
+    private void stopSocket() throws IOException {
             in.close();
             out.close();
 
             if (!socket.isClosed()) {
-                socket.close();
-            }
 
+                    socket.close();
+            }
+    }
+
+    public void closeConnection() {
+        try {
+            if (!server.closeClient(this.name)) return;
+
+            if (!(this.name == null)) {
+                server.sendAll("Клиент: " + this.name + " отключился.");
+            }
+            sendMessage("/end");
+
+            stopSocket();
             System.out.println(this.name + " отключился");
         } catch (IOException e) {
             e.printStackTrace();

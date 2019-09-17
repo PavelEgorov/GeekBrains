@@ -98,6 +98,8 @@ public class Client {
     }
 
     public static void closeConnection() throws IOException {
+        isRunning = false;
+
         in.close();
         out.close();
 

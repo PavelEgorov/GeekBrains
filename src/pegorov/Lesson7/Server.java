@@ -39,6 +39,11 @@ public class Server {
     }
 
     public boolean closeClient(String name) {
+        if (name == null){
+            System.out.println("Клиент не успел авторизоватья! ");
+
+            return true;
+        }
         if (!listClient.isEmpty()) {
             listClient.remove(name);
 
