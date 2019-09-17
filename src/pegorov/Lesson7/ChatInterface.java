@@ -54,6 +54,10 @@ public class ChatInterface extends JFrame {
         getContentPane().add(controlPanel, BorderLayout.SOUTH);
         getContentPane().add(desk, BorderLayout.CENTER);
 
+        updateDialog("Чтобы выйти из чата введите: /end");
+        updateDialog("Чтобы написать приватное сообщение введите: /w имя сообщение");
+        updateDialog("У вас есть 120сек на ввод имени!");
+        updateDialog("Введите свое имя:");
         setVisible(true);
     }
 
